@@ -1,1 +1,13 @@
+# Smartphone
 
+### Data collection
+
+An iPhone 3 was held by hand while driving with an auto-rikshaw in Mysuru. The road conditions varied a lot from paved main roads to bumpy paths. The Smartphone collected data using an accelerometer, gyroscope and GPS, what also provided an estimation of bearing and orientation. Sudden changes of the road surface texture as well as single anomalies like pothole or speedbreakers were recorded manually.
+
+### Preprocessing
+
+The columns of roll and pitch had to be swapped in the dataset. Apart from that, the data was coherent and the measurements of the accelerometer and the gyroscope were roughly compatible with the GPS data. Accurate measurements of the impact of gravity were used to calculate the horizontal area, whereas the exact determination of the driving direction with respect to the smartphone's coordinate system was challenging. The orientation of the phone relative to the vehicle was not calibrated in the beginning. Estimates of the roll and pitch direction were calculated in different ways to extract the angular velocity around the x-axis and to the y-axis with respect to the orientation of the vehicle. However, as the absolute value of the horizontal angular velocity turned out to be one of the best predictors for road anomalies, a precise distinction of x- and y-axis might not be necessary here. As the measurements of linear acceleration and angular-velocity both are very noisy and at the same time highly frequent, smoothing was done by replacing each value by the weighted mean of an odd number of consecutive values with respect to the normal distribution. For each covariate, the exact number of considered values and the standard deviation of the normal distribution were determined using the function find_optimal_parameters(), which maximises the sum of the ranges in the neighborhoods of recorded road anomalies divided by the standard deviation of the entire frame. As both vertical acceleration and angular velocity are heavily impacted by the driving speed of the vehicle, all parameters were divided by the speed estimates provided by GPS.
+
+### Results
+
+While no meaningful patterns were visible in the raw data plots, the range in the neighborhood of most of the recorded events was significantly higher than elsewhere for the modified parameters a_vertical, gx_scaled, gy_scaled and gxy_scaled. However, the goodness of fit was by far not as good as for the data obtained by the AgileX robot placed in the auto-rikshaw. Road sections that were reportedly in worse condition could be identified by higher local variance of vertical acceleration and angular velocity.
