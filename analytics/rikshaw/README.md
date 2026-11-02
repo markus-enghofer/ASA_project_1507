@@ -1,4 +1,4 @@
-## Rikshaw
+ ## Rikshaw
 
 ### Data Collection
 
@@ -6,7 +6,8 @@ Data was collected using the AgileX LIMO PRO robot mounted on an auto-rikshaw wh
 
 ### Preprocessing
 
-As the robot was not moving itself and does not have any GPS sensors, no information about the speed of the vehicle is available. The only data sources are hence the accelerometer and gyroscope. Analogously to the handling of the agilex dataset, both covariates were smoothed by replacing the raw values by the weighted mean over a sequence of consecutive observations with respect to the normal distribtion. Since one of the main characteristica of road anomalies are the large ranges of both linear acceleration and angular velocity, only the positive or negative part of the respective sums, whichever was larger, were considered. For each parameter, the standard deviation of the normal distribution and the number of considered observations for the smoothing were chosen such that they maximize the ratio of the sum of the ranges within a 2-second-frame around the labeled road anomalies and the standard deviation of the entire frame. This was done using the function find_optimal_parameters(event_timestamps, column).
+As the robot was not moving itself and does not have any GPS sensors, no information about the speed of the vehicle is available. The only data sources are hence the accelerometer and gyroscope. In exploratory_analysis_1.ipynb, only the raw parameters were examined. For each labeled road-anomaly, the maximal and the minimal value of each covariate in a four-second-neighborhood were identified. After that, the number of even more extreme values, in both directions, as well as the number of even bigger ranges within four seconds were counted to obtain ranks for each combination of an anomaly and a parameter in the categories "max", "min" and "range". 
+In the file exploratory_analysis_2, the raw parameters were slightly modified first. Analogously to the handling of the agilex dataset, both covariates were smoothed by replacing the raw values by the weighted mean over a sequence of consecutive observations with respect to the normal distribtion. Since one of the main characteristica of road anomalies are the large ranges of both linear acceleration and angular velocity, only the positive or negative part of the respective sums, whichever was larger, were considered. For each parameter, the standard deviation of the normal distribution and the number of considered observations for the smoothing were chosen such that they maximize the ratio of the sum of the ranges within a 2-second-frame around the labeled road anomalies and the standard deviation of the entire frame. This was done using the function find_optimal_parameters(event_timestamps, column).
 
 ### Results
 
